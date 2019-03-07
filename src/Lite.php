@@ -52,7 +52,7 @@ class Lite
         //合并配置
         $this->config = array_merge($this->config, $config);
         //设置引擎
-        $engine = 'Dns192\\payment\\lib\\' .ucfirst(strtolower($this->engine)) . 'Payment';
+        $engine = 'Dns192\\Payment\\lib\\' .ucfirst(strtolower($this->engine)) . 'Payment';
         $this->payer = new $engine($this->config);
         if (!$this->payer) {
             \PhalApi\DI()->logger->log('payError','No engine class', $engine);
