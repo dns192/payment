@@ -29,9 +29,21 @@ class AliPayment extends BasePayment
         $this->aopClient->signType = 'RSA2';
         $this->aopClient->rsaPrivateKeyFilePath = $sslPath . trim($config['sslName']);
         $this->aopClient->alipayPublicKey       = $sslPath . trim($config['publicKey']);
+        $this->aopClient->rsaPrivateKey = trim($config['rsaPrivateKey']);
+        $this->aopClient->alipayrsaPublicKey  = trim($config['alipayrsaPublicKey']);
         $config['mchId'] && $this->sellerId = $config['mchId'];
     }
-
+  
+  	public function setNotifyUrl($notifyUrl)
+    {
+    	$this->notifyUrl = trim($notifyUrl);
+    }
+  
+  	public function getNotifyUrl()
+    {
+    	return $this->notifyUrl;
+    }
+  
     /**创建订单--扫码支付
      *
      * @param array $orderInfo
@@ -140,8 +152,9 @@ class AliPayment extends BasePayment
         }
         $content['subject']      = $orderInfo[PaymentProperty::$body];
         $content['out_trade_no'] = $orderInfo[PaymentProperty::$orderId];
-        $content['total_amount'] = (string) ($orderInfo[PaymentProperty::$total]/100);
+        $content['total_amount'] = (string) bcdiv($orderInfo[PaymentProperty::$total],100,2);
         $content['product_code'] = $orderInfo[PaymentProperty::$productCode];
+      	$content['quit_url'] = $orderInfo[PaymentProperty::$quitUrl];
         $returnUrl = $orderInfo[PaymentProperty::$returnUrl];
         //有效时间
         $content['timeout_express'] = ((int) ($time/60)).'m';
@@ -153,7 +166,7 @@ class AliPayment extends BasePayment
         $request->setBizContent(json_encode($content,JSON_UNESCAPED_UNICODE));
         $request->setNotifyUrl($this->notifyUrl);
         $request->setReturnUrl($returnUrl);
-        return $this->aopClient->pageExecute($request);
+        return $this->aopClient->pageExecute($request,'POST');
     }
 
     /**创建订单--App支付

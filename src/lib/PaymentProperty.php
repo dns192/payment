@@ -66,6 +66,9 @@ class PaymentProperty
 
     /** @var string 支付宝--商品类型 */
     public static $goodsType   = 'goodsType';
+  
+    /** @var string 支付宝--商品类型 */
+    public static $quitUrl   = 'quit_url';
 
     /** @var string 支付宝--手机网页支付回跳页面地址，http或https开头 */
     public static $returnUrl   = 'returnUrl';

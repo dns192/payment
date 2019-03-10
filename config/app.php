@@ -3,6 +3,7 @@
  * 请在下面放置任何您需要的应用配置
  */
 return array(
+  
     /**
      * 支付相关配置
      */
@@ -25,18 +26,24 @@ return array(
             'sub_mch_id'=> 0,//服务商必填
         ),
         'ali' => array(
-            //证书目录
+            // 证书目录
             'sslPath'   => '',
-            //阿里公钥文件名
+            // 阿里公钥文件名
             'publicKey' => '',
-            //商户私钥文件名
+          	// 商户私钥文件名
             'sslName'   => '',
-            'type'      => 'wechat',
-            //回调地址
+			// 支付宝公钥内容sslPath存在优先,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
+			'rsaPublicKey' => '',
+          	// 商户私钥内容sslPath存在优先		
+          	'rsaPrivateKey' => '',
+            'type'      => 'ali',
+            // 回调地址
             'notifyUrl' => '',
+            // 应用ID,您的APPID。
             'appId'     => '',
-            //卖家支付宝用户ID 2088102146225135  非必需
+            // 卖家支付宝用户ID 2018100761614471  非必需
             'mchId'     => '',
         ),
-    ),
+    ),  
+  
 );

@@ -30,7 +30,7 @@ abstract class AlipayBase
     {
         return $this->apiMethodName;
     }
-    
+  
     public function setNotifyUrl($notifyUrl)
     {
         $this->notifyUrl=$notifyUrl;
